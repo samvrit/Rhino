@@ -8,44 +8,46 @@
 #ifndef Rhino_h
 #define Rhino_h
 
+
 #include "Arduino.h"
+#include "SoftwareSerial.h"
 
 class Rhino
 {
 public:
-    Rhino(SoftwareSerial& s):serial(s){}
-    
+    Rhino(uint8_t rx, uint8_t tx):_serial(rx,tx){}
+	
 	void init()
 	{
 		Serial.begin(9600);
-		serial.begin(9600);
-		serial.flush();
-		serial.write("P0\r");
+		_serial.begin(9600);
+		_serial.flush();
+		_serial.write("P0\r");
 		_constraint = 0;
 		if(_print)
 			Serial.println("Motor Initiated!");
 	}
 	void reset()
 	{
-		serial.flush();
-		serial.write("Y\r");
+		_serial.flush();
+		_serial.write("Y\r");
 		if(_print)
 			Serial.println("Motor Reset!");
 	}
 	void autoCalibrate()
 	{
-		serial.flush();
-		serial.write("X\r");
+		_serial.flush();
+		_serial.write("X\r");
 		if(_print)
-			Serial.println("Motor auto-calibrating");
+			Serial.println("Motor auto-calibrating..");
 	}
 	void sendCmd(String cmd)
 	{
 		char s[cmd.length()+2];
 		cmd.toCharArray(s,cmd.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		Serial.write("Command sent: ");
 		if(_print)
 		{
@@ -55,9 +57,9 @@ public:
 	}
 	void sendCmd(char cmd[])
 	{
-		serial.flush();
-		serial.write(cmd);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(cmd);
+		_serial.write("\r");
 		Serial.write("Command sent: ");
 		if(_print)
 		{
@@ -73,9 +75,9 @@ public:
 		speed = "S"+speed;
 		char s[speed.length()+2];
 		speed.toCharArray(s,speed.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Rotating motor at speed: ");
@@ -85,8 +87,8 @@ public:
 	}
 	void stopMotor()
 	{
-		serial.flush();
-		serial.write("S0\r");
+		_serial.flush();
+		_serial.write("S0\r");
 		if(_print)
 			Serial.println("Motor stopped");
 	}
@@ -100,9 +102,9 @@ public:
 		pos = "G"+pos;
 		char s[pos.length()+2];
 		pos.toCharArray(s,pos.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Go to position: ");
@@ -120,9 +122,9 @@ public:
 		String angle = "G"+String(angle2);
 		char s[angle.length()+2];
 		angle.toCharArray(s,angle.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Go to angle: ");
@@ -140,9 +142,9 @@ public:
 		String angle = "G"+String(angle2);
 		char s[angle.length()+2];
 		angle.toCharArray(s,angle.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Go to angle: ");
@@ -161,9 +163,9 @@ public:
 		String angle = "G"+String(angle2);
 		char s[angle.length()+2];
 		angle.toCharArray(s,angle.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Go to angle: ");
@@ -182,9 +184,9 @@ public:
 		String angle = "G"+String(angle2);
 		char s[angle.length()+2];
 		angle.toCharArray(s,angle.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Go to angle: ");
@@ -215,9 +217,9 @@ public:
 		pos = "R"+pos;
 		char s[pos.length()+2];
 		pos.toCharArray(s,pos.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Go to relative position: ");
@@ -250,9 +252,9 @@ public:
 		pos = "R"+pos;
 		char s[pos.length()+2];
 		pos.toCharArray(s,pos.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Go to relative position: ");
@@ -286,9 +288,9 @@ public:
 		pos = "R"+pos;
 		char s[pos.length()+2];
 		pos.toCharArray(s,pos.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Go to relative position: ");
@@ -303,9 +305,9 @@ public:
 		gain = "A"+gain;
 		char s[gain.length()+2];
 		gain.toCharArray(s,gain.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Setting Speed Feedback Gain: ");
@@ -319,9 +321,9 @@ public:
 		p = "B"+p;
 		char s[p.length()+2];
 		p.toCharArray(s,p.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Setting P: ");
@@ -335,9 +337,9 @@ public:
 		i = "C"+i;
 		char s[i.length()+2];
 		i.toCharArray(s,i.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Setting I: ");
@@ -352,9 +354,9 @@ public:
 		d = "D"+d;
 		char s[d.length()+2];
 		d.toCharArray(s,d.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Setting D: ");
@@ -369,9 +371,9 @@ public:
 		speed = "M"+speed;
 		char s[speed.length()+2];
 		speed.toCharArray(s,speed.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Setting maximum speed: ");
@@ -386,9 +388,9 @@ public:
 		addr = "D"+addr;
 		char s[addr.length()+2];
 		addr.toCharArray(s,addr.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Setting I2C address: ");
@@ -423,9 +425,9 @@ public:
 		pos = "P"+pos;
 		char s[pos.length()+2];
 		pos.toCharArray(s,pos.length()+1);
-		serial.flush();
-		serial.write(s);
-		serial.write("\r");
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
 		if(_print)
 		{
 			Serial.write("Setting motor position: ");
@@ -471,13 +473,13 @@ public:
 		int position;
 		bool neg = 0;
 		String inString = "";
-		serial.flush();
-		serial.write("P\r");
-		serial.listen();
-		while(serial.available()<=2);
-		while (serial.available()) 
+		_serial.flush();
+		_serial.write("P\r");
+		_serial.listen();
+		while(_serial.available()<=2);
+		while (_serial.available()) 
 		{
-			int inChar = serial.read();
+			int inChar = _serial.read();
 			if(isDigit(inChar))
 				inString += (char)inChar;
 			if(inChar=='-')
@@ -498,13 +500,13 @@ public:
 		float angle;
 		bool neg = 0;
 		String inString = "";
-		serial.flush();
-		serial.write("P\r");
-		serial.listen();
-		while(serial.available()<=2);
-		while (serial.available()) 
+		_serial.flush();
+		_serial.write("P\r");
+		_serial.listen();
+		while(_serial.available()<=2);
+		while (_serial.available()) 
 		{
-			int inChar = serial.read();
+			int inChar = _serial.read();
 			if(isDigit(inChar))
 				inString += (char)inChar;
 			if(inChar=='-')
@@ -525,13 +527,13 @@ public:
 		float angle;
 		bool neg = 0;
 		String inString = "";
-		serial.flush();
-		serial.write("P\r");
-		serial.listen();
-		while(serial.available()<=2);
-		while (serial.available()) 
+		_serial.flush();
+		_serial.write("P\r");
+		_serial.listen();
+		while(_serial.available()<=2);
+		while (_serial.available()) 
 		{
-			int inChar = serial.read();
+			int inChar = _serial.read();
 			if(isDigit(inChar))
 				inString += (char)inChar;
 			if(inChar=='-')
@@ -552,13 +554,13 @@ public:
 		int speed;
 		bool neg = 0;
 		String inString = "";
-		serial.flush();
-		serial.write("M\r");
-		serial.listen();
-		while(serial.available()<=2);
-		while (serial.available()) 
+		_serial.flush();
+		_serial.write("M\r");
+		_serial.listen();
+		while(_serial.available()<=2);
+		while (_serial.available()) 
 		{
-			int inChar = serial.read();
+			int inChar = _serial.read();
 			if(isDigit(inChar))
 				inString += (char)inChar;
 			if(inChar=='-')
@@ -579,13 +581,13 @@ public:
 		int speed;
 		bool neg = 0;
 		String inString = "";
-		serial.flush();
-		serial.write("S\r");
-		serial.listen();
-		while(serial.available()<=2);
-		while (serial.available()) 
+		_serial.flush();
+		_serial.write("S\r");
+		_serial.listen();
+		while(_serial.available()<=2);
+		while (_serial.available()) 
 		{
-			int inChar = serial.read();
+			int inChar = _serial.read();
 			if(isDigit(inChar))
 				inString += (char)inChar;
 			if(inChar=='-')
@@ -606,13 +608,13 @@ public:
 		int addr;
 		bool neg = 0;
 		String inString = "";
-		serial.flush();
-		serial.write("E\r");
-		serial.listen();
-		while(serial.available()<=2);
-		while (serial.available()) 
+		_serial.flush();
+		_serial.write("E\r");
+		_serial.listen();
+		while(_serial.available()<=2);
+		while (_serial.available()) 
 		{
-			int inChar = serial.read();
+			int inChar = _serial.read();
 			if(isDigit(inChar))
 				inString += (char)inChar;
 			if(inChar=='-')
@@ -633,13 +635,13 @@ public:
 		int gain;
 		bool neg = 0;
 		String inString = "";
-		serial.flush();
-		serial.write("A\r");
-		serial.listen();
-		while(serial.available()<=2);
-		while (serial.available()) 
+		_serial.flush();
+		_serial.write("A\r");
+		_serial.listen();
+		while(_serial.available()<=2);
+		while (_serial.available()) 
 		{
-			int inChar = serial.read();
+			int inChar = _serial.read();
 			if(isDigit(inChar))
 				inString += (char)inChar;
 			if(inChar=='-')
@@ -660,13 +662,13 @@ public:
 		int gain;
 		bool neg = 0;
 		String inString = "";
-		serial.flush();
-		serial.write("B\r");
-		serial.listen();
-		while(serial.available()<=2);
-		while (serial.available()) 
+		_serial.flush();
+		_serial.write("B\r");
+		_serial.listen();
+		while(_serial.available()<=2);
+		while (_serial.available()) 
 		{
-			int inChar = serial.read();
+			int inChar = _serial.read();
 			if(isDigit(inChar))
 				inString += (char)inChar;
 			if(inChar=='-')
@@ -687,13 +689,13 @@ public:
 		int gain;
 		bool neg = 0;
 		String inString = "";
-		serial.flush();
-		serial.write("C\r");
-		serial.listen();
-		while(serial.available()<=2);
-		while (serial.available()) 
+		_serial.flush();
+		_serial.write("C\r");
+		_serial.listen();
+		while(_serial.available()<=2);
+		while (_serial.available()) 
 		{
-			int inChar = serial.read();
+			int inChar = _serial.read();
 			if(isDigit(inChar))
 				inString += (char)inChar;
 			if(inChar=='-')
@@ -714,13 +716,13 @@ public:
 		int gain;
 		bool neg = 0;
 		String inString = "";
-		serial.flush();
-		serial.write("D\r");
-		serial.listen();
-		while(serial.available()<=2);
-		while (serial.available()) 
+		_serial.flush();
+		_serial.write("D\r");
+		_serial.listen();
+		while(_serial.available()<=2);
+		while (_serial.available()) 
 		{
-			int inChar = serial.read();
+			int inChar = _serial.read();
 			if(isDigit(inChar))
 				inString += (char)inChar;
 			if(inChar=='-')
@@ -737,7 +739,7 @@ public:
 		}
 	}
 private:
-    SoftwareSerial& serial;
+	SoftwareSerial _serial;
 	bool _constraint,_print;
 	long _max,_min;
 };
