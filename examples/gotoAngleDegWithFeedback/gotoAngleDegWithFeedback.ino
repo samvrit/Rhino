@@ -1,5 +1,5 @@
 /*
-This sketch instructs the motor to go through 90 degrees.
+This sketch instructs the motor to go through 90 degrees and continuously gets feedback from the motor.
 Connect the TX pin coming out of the motor(orange wire) to pin 9 on Arduino.
 Connect the RX pin coming out of the motor(yellow wire) to pin 10 on Arduino.
 Remember to give common ground connection to the motor and the Arduino.
@@ -20,5 +20,5 @@ void setup()
 
 void loop()
 {
-  
+  motor1.getPos();	// queries the motor for position
 }
