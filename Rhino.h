@@ -12,10 +12,12 @@
 #include "Arduino.h"
 #include "SoftwareSerial.h"
 
+class SoftwareSerial;
+
 class Rhino
 {
 public:
-    Rhino(uint8_t rx, uint8_t tx):_serial(rx,tx){}
+    Rhino(uint8_t rx, uint8_t tx):_serial(rx,tx){};
 	
 	void init()
 	{
