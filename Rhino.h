@@ -486,7 +486,7 @@ public:
 				inString += (char)inChar;
 			if(inChar=='-')
 				neg = 1;
-			if((inChar=='\r'))
+			if(inChar=='\r')
 			{
 				position = inString.toInt();
 				if(neg)
@@ -513,7 +513,7 @@ public:
 				inString += (char)inChar;
 			if(inChar=='-')
 				neg = 1;
-			if((inChar=='\r'))
+			if(inChar=='\r')
 			{
 				angle = (inString.toInt())/5;
 				if(neg)
@@ -540,7 +540,7 @@ public:
 				inString += (char)inChar;
 			if(inChar=='-')
 				neg = 1;
-			if((inChar=='\r'))
+			if(inChar=='\r')
 			{
 				angle = (inString.toInt())/286.6242;
 				if(neg)
@@ -567,7 +567,7 @@ public:
 				inString += (char)inChar;
 			if(inChar=='-')
 				neg = 1;
-			if((inChar=='\r'))
+			if(inChar=='\r')
 			{
 				speed = inString.toInt();
 				if(neg)
@@ -594,7 +594,7 @@ public:
 				inString += (char)inChar;
 			if(inChar=='-')
 				neg = 1;
-			if((inChar=='\r'))
+			if(inChar=='\r')
 			{
 				speed = inString.toInt();
 				if(neg)
@@ -621,7 +621,7 @@ public:
 				inString += (char)inChar;
 			if(inChar=='-')
 				neg = 1;
-			if((inChar=='\r'))
+			if(inChar=='\r')
 			{
 				addr = inString.toInt();
 				if(neg)
@@ -648,7 +648,7 @@ public:
 				inString += (char)inChar;
 			if(inChar=='-')
 				neg = 1;
-			if((inChar=='\r'))
+			if(inChar=='\r')
 			{
 				gain = inString.toInt();
 				if(neg)
@@ -675,7 +675,7 @@ public:
 				inString += (char)inChar;
 			if(inChar=='-')
 				neg = 1;
-			if((inChar=='\r'))
+			if(inChar=='\r')
 			{
 				gain = inString.toInt();
 				if(neg)
@@ -702,7 +702,7 @@ public:
 				inString += (char)inChar;
 			if(inChar=='-')
 				neg = 1;
-			if((inChar=='\r'))
+			if(inChar=='\r')
 			{
 				gain = inString.toInt();
 				if(neg)
@@ -729,7 +729,7 @@ public:
 				inString += (char)inChar;
 			if(inChar=='-')
 				neg = 1;
-			if((inChar=='\r'))
+			if(inChar=='\r')
 			{
 				gain = inString.toInt();
 				if(neg)
