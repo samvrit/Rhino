@@ -32,7 +32,6 @@ getAngleDeg	KEYWORD2
 getAngleRad	KEYWORD2
 getSpeed	KEYWORD2
 getRotSpeed	KEYWORD2
-getRotSpeed	KEYWORD2
 getI2CAddr	KEYWORD2
 getSFGain	KEYWORD2
 getP	KEYWORD2
