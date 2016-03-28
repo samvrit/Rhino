@@ -20,6 +20,8 @@ setD	KEYWORD2
 setSpeed	KEYWORD2
 setI2CAddr	KEYWORD2
 setPos	KEYWORD2
+setAngleDeg	KEYWORD2
+setAngleRad	KEYWORD2
 setConstraint	KEYWORD2
 setConstraintRad	KEYWORD2
 setConstraintDeg	KEYWORD2

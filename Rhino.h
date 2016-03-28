@@ -109,7 +109,7 @@ public:
 		if(_print)
 			Serial.println("Motor stopped");
 	}
-	void gotoPos(float pos1)
+	void gotoPos(long pos1)
 	{
         pos1 = ceil(pos1);
 		int pos2 = (int)pos1;
@@ -449,6 +449,84 @@ public:
 		{
 			Serial.write("Setting motor position: ");
 			Serial.println(pos1);
+		}
+		
+	}
+	void setAngleDeg(float angle1)
+	{
+		angle1 *= 5;
+		int angle = (int)ceil(angle1);
+		if(_constraint)
+		{
+			if(_print)
+			{
+				printOutput(0);
+				int curr_pos = getPos();
+				printOutput(1);
+				if(angle > _max)
+					angle = _max;
+				else if(angle < _min)
+					angle = _min;
+			}
+			else
+			{
+				int curr_pos = getPos();
+				if(angle > _max)
+					angle = _max;
+				else if(angle < _min)
+					angle = _min;
+			}
+		}
+		String angle2 = String(angle);
+		angle2 = "P"+angle2;
+		char s[angle2.length()+2];
+		angle2.toCharArray(s,angle2.length()+1);
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
+		if(_print)
+		{
+			Serial.write("Setting motor position: ");
+			Serial.println(angle);
+		}
+		
+	}
+	void setAngleRad(float angle1)
+	{
+		angle1 *= 286.6242;
+		int angle = (int)ceil(angle1);
+		if(_constraint)
+		{
+			if(_print)
+			{
+				printOutput(0);
+				int curr_pos = getPos();
+				printOutput(1);
+				if(angle > _max)
+					angle = _max;
+				else if(angle < _min)
+					angle = _min;
+			}
+			else
+			{
+				int curr_pos = getPos();
+				if(angle > _max)
+					angle = _max;
+				else if(angle < _min)
+					angle = _min;
+			}
+		}
+		String angle2 = String(angle);
+		angle2 = "P"+angle2;
+		char s[angle2.length()+2];
+		angle2.toCharArray(s,angle2.length()+1);
+		_serial.flush();
+		_serial.write(s);
+		_serial.write("\r");
+		if(_print)
+		{
+			Serial.write("Setting motor position: ");
+			Serial.println(angle);
 		}
 		
 	}
