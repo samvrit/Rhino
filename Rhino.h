@@ -32,7 +32,7 @@ class SoftwareSerial;
 class Rhino
 {
 public:
-    Rhino(uint8_t rx, uint8_t tx):_serial(rx,tx){};
+    Rhino(uint8_t rx, uint8_t tx):_serial(rx,tx),_constraint(0),_print(0){};
 	
 	void init()
 	{
@@ -40,7 +40,6 @@ public:
 		_serial.begin(9600);
 		_serial.flush();
 		_serial.write("P0\r");
-		_constraint = 0;
 		if(_print)
 			Serial.println("Motor Initiated!");
 	}
