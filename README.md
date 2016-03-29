@@ -3,4 +3,4 @@ This is an Arduino library to control Rhino Servo DC Motors (UART) which are ava
 
 For installation and documentation, visit <a href="http://samvrit.tk/high-torque-rhino-servo-dc-motor-arduino-library/" target="_blank">this page</a>.
 
-The library is released for public, under the GNU GPL v3 license.
+The library is released for public, under GNU GPL v3.
